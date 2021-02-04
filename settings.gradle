@@ -1,0 +1,3 @@
+include ':InfiniteViewPager'
+include ':app'
+rootProject.name = "InfiniteViewPager"

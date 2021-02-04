@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <org.nnt.infiniteviewpager.AutoScrollViewPager
+        android:id="@+id/view_pager"
+        app:period_millis="3000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+    <org.nnt.infiniteviewpager.Indicator
+        android:id="@+id/indicator"
+        app:active_color="#FF0202"
+        app:layout_constraintEnd_toEndOf="@+id/view_pager"
+        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+        app:layout_margin="10dp"
+        app:active_opacity="0.5"
+        app:inactive_opacity="0.5"
+        app:active_width="40dp"
+        app:inactive_width="20dp"
+        app:spacing="4dp"
+        app:view_pager="@id/view_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

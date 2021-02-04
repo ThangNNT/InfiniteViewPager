@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Indicator">
+        <attr name="layout_margin" format="dimension" />
+        <attr name="layout_marginTop" format="dimension" />
+        <attr name="layout_marginBottom" format="dimension" />
+        <attr name="layout_marginLeft" format="dimension" />
+        <attr name="layout_marginRight" format="dimension" />
+        <attr name="view_pager" format="reference" />
+        <attr name="active_color" format="color" />
+        <attr name="inactive_color" format="color" />
+        <attr name="indicator_height" format="dimension" />
+        <attr name="active_width" format="dimension" />
+        <attr name="inactive_width" format="dimension" />
+        <attr name="spacing" format="dimension" />
+        <attr name="corner_radiusX" format="dimension" />
+        <attr name="corner_radiusY" format="dimension" />
+        <attr name="active_opacity" format="float" />
+        <attr name="inactive_opacity" format="float" />
+    </declare-styleable>
+    <declare-styleable name="InfiniteViewPager">
+        <attr name="period_millis" format="integer" />
+    </declare-styleable>
+</resources>
