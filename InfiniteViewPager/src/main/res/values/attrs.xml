@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
     <declare-styleable name="Indicator" >
-        <attr name="layout_margin" format="dimension" />
-        <attr name="layout_marginTop" format="dimension" />
-        <attr name="layout_marginBottom" format="dimension" />
-        <attr name="layout_marginLeft" format="dimension" />
-        <attr name="layout_marginRight" format="dimension" />
         <attr name="nnt_viewPager" format="reference" />
         <attr name="nnt_activeColor" format="color" />
         <attr name="nnt_inactiveColor" format="color" />
@@ -19,7 +14,7 @@
         <attr name="nnt_inactiveOpacity" format="float" />
     </declare-styleable>
     <declare-styleable name="InfiniteViewPager">
-        <attr name="autoScroll" format="boolean"/>
-        <attr name="period_millis" format="integer" />
+        <attr name="nnt_autoScroll" format="boolean"/>
+        <attr name="nnt_delay_millis" format="integer" />
     </declare-styleable>
 </resources>
