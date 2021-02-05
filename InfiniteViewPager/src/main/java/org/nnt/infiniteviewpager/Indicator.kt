@@ -40,18 +40,15 @@ class Indicator : View{
     private var radiusY = 10
     /** **/
 
-    /** define margin of the view **/
-//    private var marginTop = 0
-//    private var marginBottom = 0
-//    private var marginLeft = 0
-//    private var marginRight = 0
-
     private var viewPager: ViewPager? = null
     private var viewPagerId= -1
 
     private var rectArray: ArrayList<RectF> = ArrayList()
 
     private var isHaveListener = false
+
+    /** animation type **/
+    private var animationType = AnimationType.SCALE
 
     constructor(context: Context) : super(context) {
         val typedArray = context.obtainStyledAttributes(R.styleable.Indicator)
@@ -363,7 +360,30 @@ class Indicator : View{
                 selectedPosition = increasePosition(selectedPosition)
             }
         }
+        when(animationType){
+            AnimationType.NONE ->{
 
+            }
+            AnimationType.WORM->{
+
+            }
+            AnimationType.THIN_WORM->{
+
+            }
+            AnimationType.SLIDE->{
+
+            }
+            AnimationType.SWAP->{
+
+            }
+            AnimationType.SCALE ->{
+                setScaleAnimation(realPosition, nextPosition, nextPositionWidthIncreasePercent)
+            }
+        }
+    }
+
+
+    private fun setScaleAnimation(realPosition: Int,nextPosition: Int , nextPositionWidthIncreasePercent: Float){
         var left = paddingLeft.toFloat()
         val top = paddingTop.toFloat()
         for (i in rectArray.indices){
@@ -388,5 +408,15 @@ class Indicator : View{
                 }
             }
         }
+    }
+
+
+    enum class AnimationType{
+        NONE,
+        WORM,
+        THIN_WORM,
+        SLIDE,
+        SWAP,
+        SCALE
     }
 }
