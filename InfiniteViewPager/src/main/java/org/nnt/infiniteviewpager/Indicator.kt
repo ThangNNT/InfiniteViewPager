@@ -48,7 +48,7 @@ class Indicator : View{
     private var isHaveListener = false
 
     /** animation type **/
-    private var animationType = AnimationType.SCALE
+    private var animationType = 0
 
     constructor(context: Context) : super(context) {
         val typedArray = context.obtainStyledAttributes(R.styleable.Indicator)
@@ -77,6 +77,7 @@ class Indicator : View{
         inactiveOpacity = typedArray.getFloat(R.styleable.Indicator_nnt_inactiveOpacity, inactiveOpacity)
 
         viewPagerId = typedArray.getResourceId(R.styleable.Indicator_nnt_viewPager, -1)
+        animationType = typedArray.getInt(R.styleable.Indicator_nnt_animation_type, 0)
         init()
         typedArray.recycle()
     }
@@ -335,6 +336,29 @@ class Indicator : View{
     }
 
     private fun setRectArrayWhenPositionOffsetChange(position: Int, positionOffset: Float){
+        when(animationType){
+            AnimationType.NONE.ordinal ->{
+
+            }
+            AnimationType.WORM.ordinal->{
+
+            }
+            AnimationType.THIN_WORM.ordinal->{
+
+            }
+            AnimationType.SLIDE.ordinal->{
+
+            }
+            AnimationType.SWAP.ordinal->{
+
+            }
+            AnimationType.SCALE .ordinal->{
+                setScaleAnimation(position, positionOffset)
+            }
+        }
+    }
+
+    private fun setScaleAnimation(position: Int, positionOffset: Float){
         var realPosition = position
         var nextPosition = 0
         var nextPositionWidthIncreasePercent = 0F
@@ -360,30 +384,7 @@ class Indicator : View{
                 selectedPosition = increasePosition(selectedPosition)
             }
         }
-        when(animationType){
-            AnimationType.NONE ->{
 
-            }
-            AnimationType.WORM->{
-
-            }
-            AnimationType.THIN_WORM->{
-
-            }
-            AnimationType.SLIDE->{
-
-            }
-            AnimationType.SWAP->{
-
-            }
-            AnimationType.SCALE ->{
-                setScaleAnimation(realPosition, nextPosition, nextPositionWidthIncreasePercent)
-            }
-        }
-    }
-
-
-    private fun setScaleAnimation(realPosition: Int,nextPosition: Int , nextPositionWidthIncreasePercent: Float){
         var left = paddingLeft.toFloat()
         val top = paddingTop.toFloat()
         for (i in rectArray.indices){
@@ -409,7 +410,6 @@ class Indicator : View{
             }
         }
     }
-
 
     enum class AnimationType{
         NONE,
