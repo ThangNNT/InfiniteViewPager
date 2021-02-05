@@ -70,19 +70,6 @@ class Indicator : View{
     private fun getAttribute(typedArray: TypedArray){
         activeColor = typedArray.getColor(R.styleable.Indicator_nnt_activeColor, activeColor)
         inactiveColor = typedArray.getColor(R.styleable.Indicator_nnt_inactiveColor, inactiveColor)
-        val margin = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_margin, 0)
-//        if (margin>0){
-//            marginLeft = margin
-//            marginTop = margin
-//            marginRight = margin
-//            marginBottom = margin
-//        }
-//        else {
-//            marginLeft = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginLeft, 0)
-//            marginTop = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginTop, 0)
-//            marginRight = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginRight, 0)
-//            marginBottom = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginBottom, 0)
-//        }
         indicatorHeight =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_indicatorHeight, indicatorHeight)
         activeWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_activeWidth, activeWidth)
         inactiveWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_inactiveWidth, inactiveWidth)
