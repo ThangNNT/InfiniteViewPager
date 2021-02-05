@@ -5,26 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <org.nnt.infiniteviewpager.AutoScrollViewPager
-        android:id="@+id/view_pager"
-        app:period_millis="3000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ScrollView
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-    <org.nnt.infiniteviewpager.Indicator
-        android:id="@+id/indicator"
-        app:active_color="#FF0202"
-        app:layout_constraintEnd_toEndOf="@+id/view_pager"
-        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
-        app:layout_margin="10dp"
-        app:active_opacity="0.5"
-        app:inactive_opacity="0.5"
-        app:active_width="40dp"
-        app:inactive_width="20dp"
-        app:spacing="4dp"
-        app:view_pager="@id/view_pager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="TEST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <org.nnt.infiniteviewpager.InfiniteViewPager
+                android:id="@+id/view_pager"
+                app:nnt_delay_millis="3000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+            <org.nnt.infiniteviewpager.Indicator
+                android:id="@+id/indicator"
+                app:nnt_activeColor="#FF0202"
+                app:layout_constraintEnd_toEndOf="@+id/view_pager"
+                app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+                android:padding="10dp"
+                app:nnt_activeOpacity="0.5"
+                app:nnt_inactiveOpacity="0.5"
+                app:nnt_activeWidth="40dp"
+                app:nnt_inactiveWidth="20dp"
+                app:nnt_spacing="4dp"
+                app:nnt_viewPager="@id/view_pager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
