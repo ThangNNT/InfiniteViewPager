@@ -24,8 +24,5 @@ class MainActivity : AppCompatActivity() {
             isAutoScroll = !isAutoScroll
             viewPager?.setAutoScroll(isAutoScroll)
         }
-
     }
-
-
 }
