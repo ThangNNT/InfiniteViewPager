@@ -17,14 +17,12 @@ abstract class InfinitePagerAdapter(fm: FragmentManager, private val data: List<
         return fakeCount
     }
     fun getRealPosition(position: Int): Int{
-        if(position>=getRealCount()&& position <getRealCount()*2){
-            return position-getRealCount()
-        }
-        else if(position>=getRealCount()*2){
-            return position-getRealCount()*2
-        }
-        else {
-            return position
+        return if(position>=getRealCount()&& position <getRealCount()*2){
+            position-getRealCount()
+        } else if(position>=getRealCount()*2){
+            position-getRealCount()*2
+        } else {
+            position
         }
     }
     fun getRealCount(): Int {

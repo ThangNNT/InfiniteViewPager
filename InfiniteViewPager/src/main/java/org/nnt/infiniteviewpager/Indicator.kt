@@ -41,10 +41,10 @@ class Indicator : View{
     /** **/
 
     /** define margin of the view **/
-    private var marginTop = 0
-    private var marginBottom = 0
-    private var marginLeft = 0
-    private var marginRight = 0
+//    private var marginTop = 0
+//    private var marginBottom = 0
+//    private var marginLeft = 0
+//    private var marginRight = 0
 
     private var viewPager: ViewPager? = null
     private var viewPagerId= -1
@@ -68,31 +68,31 @@ class Indicator : View{
     }
 
     private fun getAttribute(typedArray: TypedArray){
-        activeColor = typedArray.getColor(R.styleable.Indicator_active_color, activeColor)
-        inactiveColor = typedArray.getColor(R.styleable.Indicator_inactive_color, inactiveColor)
+        activeColor = typedArray.getColor(R.styleable.Indicator_nnt_activeColor, activeColor)
+        inactiveColor = typedArray.getColor(R.styleable.Indicator_nnt_inactiveColor, inactiveColor)
         val margin = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_margin, 0)
-        if (margin>0){
-            marginLeft = margin
-            marginTop = margin
-            marginRight = margin
-            marginBottom = margin
-        }
-        else {
-            marginLeft = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginLeft, 0)
-            marginTop = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginTop, 0)
-            marginRight = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginRight, 0)
-            marginBottom = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginBottom, 0)
-        }
-        indicatorHeight =typedArray.getDimensionPixelSize(R.styleable.Indicator_indicator_height, indicatorHeight)
-        activeWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_active_width, activeWidth)
-        inactiveWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_inactive_width, inactiveWidth)
-        spacing = typedArray.getDimensionPixelSize(R.styleable.Indicator_spacing, spacing)
-        radiusX = typedArray.getDimensionPixelSize(R.styleable.Indicator_corner_radiusX, radiusX)
-        radiusY = typedArray.getDimensionPixelSize(R.styleable.Indicator_corner_radiusY, radiusY)
-        activeOpacity = typedArray.getFloat(R.styleable.Indicator_active_opacity, activeOpacity)
-        inactiveOpacity = typedArray.getFloat(R.styleable.Indicator_inactive_opacity, inactiveOpacity)
+//        if (margin>0){
+//            marginLeft = margin
+//            marginTop = margin
+//            marginRight = margin
+//            marginBottom = margin
+//        }
+//        else {
+//            marginLeft = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginLeft, 0)
+//            marginTop = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginTop, 0)
+//            marginRight = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginRight, 0)
+//            marginBottom = typedArray.getDimensionPixelSize(R.styleable.Indicator_layout_marginBottom, 0)
+//        }
+        indicatorHeight =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_indicatorHeight, indicatorHeight)
+        activeWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_activeWidth, activeWidth)
+        inactiveWidth =typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_inactiveWidth, inactiveWidth)
+        spacing = typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_spacing, spacing)
+        radiusX = typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_corner_radiusX, radiusX)
+        radiusY = typedArray.getDimensionPixelSize(R.styleable.Indicator_nnt_corner_radiusY, radiusY)
+        activeOpacity = typedArray.getFloat(R.styleable.Indicator_nnt_activeOpacity, activeOpacity)
+        inactiveOpacity = typedArray.getFloat(R.styleable.Indicator_nnt_inactiveOpacity, inactiveOpacity)
 
-        viewPagerId = typedArray.getResourceId(R.styleable.Indicator_view_pager, -1)
+        viewPagerId = typedArray.getResourceId(R.styleable.Indicator_nnt_viewPager, -1)
         init()
         typedArray.recycle()
     }
@@ -118,8 +118,8 @@ class Indicator : View{
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val desireWidth = marginLeft+ marginRight + activeWidth + (pageCount-1)*inactiveWidth + spacing*(pageCount-1)
-        val desireHeight = marginTop + marginBottom + indicatorHeight
+        val desireWidth = paddingLeft+ paddingRight + activeWidth + (pageCount-1)*inactiveWidth + spacing*(pageCount-1)
+        val desireHeight = paddingTop + paddingBottom + indicatorHeight
         setMeasuredDimension(desireWidth, desireHeight)
     }
 
@@ -240,8 +240,8 @@ class Indicator : View{
                     this@Indicator.pageCount = it.count
                     selectedPosition = 0
                 }
-                var left = marginLeft.toFloat()
-                val top = marginTop.toFloat()
+                var left = paddingLeft.toFloat()
+                val top = paddingTop.toFloat()
                 rectArray.clear()
                 for (i in 0 until this@Indicator.pageCount){
                     if(i !=0){
@@ -275,8 +275,8 @@ class Indicator : View{
                 this.pageCount = it.count
                 selectedPosition = 0
             }
-            var left = marginLeft.toFloat()
-            val top = marginTop.toFloat()
+            var left = paddingLeft.toFloat()
+            val top = paddingTop.toFloat()
             rectArray.clear()
             for (i in 0 until this.pageCount){
                 if(i !=0){
@@ -319,8 +319,8 @@ class Indicator : View{
         invalidate()
     }
     private fun updateWhenAnySizeChanged(){
-        var left = marginLeft.toFloat()
-        val top = marginTop.toFloat()
+        var left = paddingLeft.toFloat()
+        val top = paddingTop.toFloat()
         for (i in 0 until this.pageCount){
             val rectF = rectArray[i]
             if(i !=0){
@@ -377,8 +377,8 @@ class Indicator : View{
             }
         }
 
-        var left = marginLeft.toFloat()
-        val top = marginTop.toFloat()
+        var left = paddingLeft.toFloat()
+        val top = paddingTop.toFloat()
         for (i in rectArray.indices){
             val rectF = rectArray[i]
             if(i !=0){

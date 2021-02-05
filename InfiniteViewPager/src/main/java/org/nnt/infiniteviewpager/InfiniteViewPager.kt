@@ -2,12 +2,15 @@ package org.nnt.infiniteviewpager
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.Log
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import kotlinx.android.parcel.Parcelize
 
 class InfiniteViewPager: ViewPager {
 
@@ -38,11 +41,11 @@ class InfiniteViewPager: ViewPager {
                     if (it is InfinitePagerAdapter) {
                         val adapterCount = it.getRealCount()
                         if (currentPage < adapterCount) {
-                            this@InfiniteViewPager.setCurrentItem(currentPage+adapterCount, false)
+                            this@InfiniteViewPager.setCurrentItem(currentPage + adapterCount, false)
                             currentPage = currentItem
                         }
                         else if(currentPage >= adapterCount*2){
-                            this@InfiniteViewPager.setCurrentItem(currentPage-adapterCount, false)
+                            this@InfiniteViewPager.setCurrentItem(currentPage - adapterCount, false)
                             currentPage = currentItem
                         }
                     }
@@ -54,22 +57,22 @@ class InfiniteViewPager: ViewPager {
         }
 
     }
-    fun storeAdapter(adapter: PagerAdapter?, position: Int? = null){
-        Log.d("AutoScrollViewPager", "onStoreAdapter")
-        this.mAdapter = adapter
-        this.position = position
-    }
 
     override fun setAdapter(adapter: PagerAdapter?) {
-        super.setAdapter(adapter)
-        this.mAdapter= adapter
-        position = null
-        Log.d("AutoScrollViewPager", "setAdapter")
-        if(adapter is InfinitePagerAdapter){
-            this.setCurrentItem(adapter.getRealCount(),false)
-            this.offscreenPageLimit= adapter.getRealCount()+1
+        if(isAttachedToWindow){
+            super.setAdapter(adapter)
+            this.mAdapter= adapter
+            position = null
+            Log.d("InfiniteViewPager", "setAdapter")
+            if(adapter is InfinitePagerAdapter){
+                this.setCurrentItem(adapter.getRealCount(), false)
+                this.offscreenPageLimit= adapter.getRealCount()+1
+            }
+            currentPage = currentItem
         }
-        currentPage = currentItem
+        else {
+            this.mAdapter = adapter
+        }
     }
     constructor(context: Context) : super(context) {
         val typedArray = context.obtainStyledAttributes(R.styleable.InfiniteViewPager)
@@ -106,20 +109,40 @@ class InfiniteViewPager: ViewPager {
 
     }
 
+    override fun onSaveInstanceState(): Parcelable {
+        Log.d("InfiniteViewPager", "onSave")
+        val bundle = Bundle().apply {
+            currentPage.let {
+                putInt(CURRENT_POSITION, it)
+            }
+            mAdapter?.let {
+                putParcelable(ADAPTER, it.saveState())
+            }
+        }
+        return InfiniteSaveState(bundle, SavedState(super.onSaveInstanceState() as SavedState))
+    }
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        Log.d("InfiniteViewPager", "onRestore")
+        if (state is InfiniteSaveState) {
+            super.onRestoreInstanceState(state.savedState.superState)
+            position = state.bundle.getInt(CURRENT_POSITION)
+        }
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        Log.d("AutoScrollViewPager", "detach")
+        Log.d("InfiniteViewPager", "detach")
         this.removeOnPageChangeListener(listener)
         handler1.removeCallbacks(timerTask)
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        mAdapter?.let{
-            super.setAdapter(it)
-            if(it is InfinitePagerAdapter){
-                this.setCurrentItem(it.getRealCount(),false)
-                this.offscreenPageLimit= it.getRealCount()+1
+        mAdapter?.let{ adapter ->
+            super.setAdapter(adapter)
+            if(adapter is InfinitePagerAdapter){
+                this.setCurrentItem(adapter.getRealCount(), false)
+                this.offscreenPageLimit= adapter.getRealCount()+1
             }
             currentPage = currentItem
             position?.let {
@@ -128,6 +151,14 @@ class InfiniteViewPager: ViewPager {
             this.addOnPageChangeListener(listener)
             handler1.postDelayed(timerTask, periodMillis)
         }
-        Log.d("AutoScrollViewPager", "attach")
+        Log.d("InfiniteViewPager", "attach")
+    }
+
+    @Parcelize
+    data class InfiniteSaveState(var bundle: Bundle, var savedState: SavedState): Parcelable
+
+    companion object {
+        private const val CURRENT_POSITION = "CURRENT_POSITION"
+        private const val ADAPTER = "ADAPTER"
     }
 }
