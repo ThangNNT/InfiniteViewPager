@@ -12,6 +12,14 @@
         <attr name="nnt_corner_radiusY" format="dimension" />
         <attr name="nnt_activeOpacity" format="float" />
         <attr name="nnt_inactiveOpacity" format="float" />
+        <attr name="nnt_animation_type" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="worm" value="1"/>
+            <enum name="thin_worm" value="2"/>
+            <enum name="slide" value="3"/>
+            <enum name="swap" value="4"/>
+            <enum name="scale" value="5"/>
+        </attr>
     </declare-styleable>
     <declare-styleable name="InfiniteViewPager">
         <attr name="nnt_autoScroll" format="boolean"/>
