@@ -371,17 +371,21 @@ class Indicator : View{
             if(i !=0){
                 left +=spacing
             }
-            if (i == realPosition) {
-                val width = inactiveWidth+(activeWidth-inactiveWidth)*(1-nextPositionWidthIncreasePercent)
-                rectF.set(left, top, left + width, top + indicatorHeight)
-                left += width
-            } else if (i == nextPosition) {
-                val width = inactiveWidth+(activeWidth-inactiveWidth)*nextPositionWidthIncreasePercent
-                rectF.set(left, top, left + width, top + indicatorHeight)
-                left += width
-            } else {
-                rectF.set(left, top, left + inactiveWidth, top + indicatorHeight)
-                left += inactiveWidth
+            when (i) {
+                realPosition -> {
+                    val width = inactiveWidth+(activeWidth-inactiveWidth)*(1-nextPositionWidthIncreasePercent)
+                    rectF.set(left, top, left + width, top + indicatorHeight)
+                    left += width
+                }
+                nextPosition -> {
+                    val width = inactiveWidth+(activeWidth-inactiveWidth)*nextPositionWidthIncreasePercent
+                    rectF.set(left, top, left + width, top + indicatorHeight)
+                    left += width
+                }
+                else -> {
+                    rectF.set(left, top, left + inactiveWidth, top + indicatorHeight)
+                    left += inactiveWidth
+                }
             }
         }
     }
